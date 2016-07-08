@@ -573,7 +573,16 @@ MY_NODE_MODULE_CALLBACK(render)
   MemValueBase<RenderAsyncReq> req;
   req.set(new RenderAsyncReq());
   v8::String::Utf8Value outputFormatObject(options->Get(V8_STRING_NEW_UTF8("outputFormat"))->ToString());
-  v8::Local<v8::Object> dataobject = options->Get(V8_STRING_NEW_UTF8("data")).As<v8::Object>();
+  v8::Local<v8::ArrayBuffer> dataobject = options->Get(V8_STRING_NEW_UTF8("data")).As<v8::ArrayBuffer>();
+
+
+  req->data.assign(static_cast<char*>(dataobject->Data()),
+          dataobject->ByteLength());
+//  else
+//  {
+//    RETURN_EXCEPTION_STR_CB("data must be a Buffer", callback);
+//  }
+//
 
   req->outputFormat.assign(*outputFormatObject, outputFormatObject.length());
 
