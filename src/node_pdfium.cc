@@ -576,8 +576,8 @@ MY_NODE_MODULE_CALLBACK(render)
   v8::Local<v8::ArrayBuffer> dataobject = options->Get(V8_STRING_NEW_UTF8("data")).As<v8::ArrayBuffer>();
 
 
-  req->data.assign(static_cast<char*>(dataobject->Data()),
-          dataobject->ByteLength());
+  req->data.assign(static_cast<char*>(dataobject.Data()),
+          dataobject.ByteLength());
 //  else
 //  {
 //    RETURN_EXCEPTION_STR_CB("data must be a Buffer", callback);
